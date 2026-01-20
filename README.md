@@ -97,7 +97,7 @@ Modified 상태의 파일 되돌리기
 
 
 ## config
-git config --global user.name 
-변경시 git config --global user.name seongung
+git config --global user.name   
+변경시 git config --global user.name seongung   
 git config --global user.email
 
