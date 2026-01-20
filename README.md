@@ -94,3 +94,10 @@ Modified 상태의 파일 되돌리기
    - add 했던 내역이 없어집니다.
 2. git rm --cached
   - Git이 파악하고 있는 파일을 GIt에서만 제거
+
+
+## config
+git config --global user.name 
+변경시 git config --global user.name seongung
+git config --global user.email
+
