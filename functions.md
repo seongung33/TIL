@@ -24,7 +24,7 @@ def make_sum(pram1, pram2):
     - 출력 
 ```python
 result = make_sum(100, 200)
-print(result)
+print(result) # 300
 ```
 
 print 함수는 반환값이 없다.
@@ -55,10 +55,12 @@ def greet(name, age):
     print(f'안녕하세요, {name}님! {age}살 이시군요.')
 
 greet('Bob') #에러
+greet('bob', 25) # 올바르게 출력 됨
 ```
 ----------
 2. 기본 인자 값
-
+- 함수 정의에서 매개변수에 기본 값을 할당한다.
+- 인자를 전달하지 않으면 기본 값이 매개변수에 할당된다.
 ```python
 def greet(name, age= 30):
     print(f'안녕하세요, {name}님! {age}살 이시군요.')
@@ -76,7 +78,8 @@ greet('alice', 20) # 안녕하세요, alice님! 20살 이시군요.
 def greet(name, age= 30):
     print(f'안녕하세요, {name}님! {age}살 이시군요.')
 
-greet(age = 35, name'Dave') #정상 출력
+greet(age = 35, name ='Dave') #정상 출력
+greet(age =35, 'Dave') # 오류
 ```
 **왜 위치 인자가 앞에 와야 할까?**
 순서의 모호성 때문.
@@ -86,10 +89,12 @@ greet(age = 35, name'Dave') #정상 출력
 4. 임의의 인자 목록(Arbitrary Argument Lists)
 - 함수 정의시 매개변수 앞에 *을 붙여 사용
 - 여러개의 인자를 tuple로 처리
+- 인자가 없어도 됨.
 ```python
-def calculate(*args):
+def calculate(*args): # 몇 개가 들어올지 모른다.
     print(args)
     print(type(args)) # <class 'tuple'>
+
 ```
 -------
 5. 임의의 키워드 인자 목록(Arbitrary Keyword Argument Lists)
@@ -101,9 +106,12 @@ def print_info(**kwargs):
 
 print_info(name ='Eve', age = 30) # {'name': 'Eve, 'age': 30}
 ```
+
+인자 권장 작성 순서  
+위치 -> 기본 -> 가변 -> 가변 키워드
 ## 재귀함수
 함수 내부에서 자기 자신을 호출하는 함수  
-대표예시: 팩토리얼
+대표예시: 팩토리얼, 피보나치
 ```python
 def factorial(n):
     if n == 0:
@@ -112,6 +120,15 @@ def factorial(n):
         return n * factorial(n-1)
 
 print(factorial(5)) # 120
+```
+```python
+# f(n) = f(n-1) + f(n-2)
+# f(0) = 0 f(1) = 1
+def fibo(n):
+    if n < 2:
+        return n
+    return fibo(n-1) + fibo(n-2)
+print(fibo(7)) # 13
 ```
 - 재귀함수 특징
   - 코드의 가독성이 높아짐
@@ -143,8 +160,9 @@ sorted(num, reverse = True) # 5 4 3 2 1
 
 - variable
   - local variable(지역변수)
-  - global variable(전역변수) 
-LEGB Rule
+  - global variable(전역변수)  
+LEGB Rule  
+Bulit_in - 정의하지 않아도 사용 가능한 함수  
 함수는 local > Enclosed > Global > Bulit_in 순으로 찾으러 감.
 ```python
 sum = 5
@@ -165,22 +183,24 @@ print(num) # 0
 inc()
 print(num) # 1
 ```
-
+---------------------- 
 - 함수 이름은 동사로, 약어 지양
 - return 이 True/False 일시 is or has 로 시작하기
 ## 단일 책임 원칙
 함수는 하나의 명확한 목적과 책임만 가져야함  
 함수는 한 가지 작업만 수행
 
-## Packing
+## Packing *
+
 여러개의 데이터를 하나의 컬렉션으로 모아 담기  
 *을 활용한 패킹  
-**을 활용한 패킹
+을 활용한 패킹
 
 ## Unpacking
+**
 튜플이나 리스트 등의 객체의 요소들을 개별 변수에 할당  
-*을 활용한 언패킹
-- 리스트나 튜플 앞에 *을 붙여 각 요소를 함수의 개별 위치 인자로 전달
+**을 활용한 언패킹
+- 리스트나 튜플 앞에 **을 붙여 각 요소를 함수의 개별 위치 인자로 전달
 
 |구분|상황|*연산자|**연산자|
 |------|-----|----|-----|
