@@ -2,7 +2,7 @@
 데이터 구조: str, list, dict  
 메서드: 문자열, 리스트, 딕셔너리 등 데이터 구조의 메서드를 호출하여 다양한 기능을 활용하기
 ## 메서드
-**객체**에 속한 함수
+**객체**에 속한 **함수**
 - class 내부에 정의되는 함수  
 - 클래스는 파이썬에서 타입을 표현하는 방법
 ```python
@@ -10,10 +10,11 @@
 number = [1, 2, 3]
 number.append(4) # 1, 2, 3, 4
 ```
-공통 시퀀스 메서드
+## 공통 시퀀스 메서드 
 s.index(x) : 시퀀스에서 첫 번째로 일치하는 항목 x의 인덱스를 반환  
 s.count(x) : 시권스 s에서 등장하는 항목  x의 개수를 반환
 
+무조건 있어야 되면 index / 없어도 코드를 실행시키고 싶으면 find
 ## 불변 시퀀스 메서드(문자열 전용)
 s.find(x): x의 첫번쨰 위치를 반환 없으면, -1을 반환  
 s.isupper(): 문자열 내의 모든 케이스 문자가 대문자인지 확인  
@@ -21,14 +22,14 @@ s.islower(): 문자열 내의 모든 케이스 문자가 소문자인지 확인
 s.isalpha(): 문자열의 모든 문자가 알파벳이고 하나 이상의 문자가 포함되어 있으면 True를 반환
 
 ## 문자열 조작
-**새로운 문자열 반환** >> 문자열은 불변이기 때문
-str.replace(old, new[, count]): 기존 문자열에서 'old'라는 부분 문자열을 'new'로 모두 변경
+**새로운 문자열 반환** >> 문자열은 불변이기 때문  
+`str.replace(old, new[, count]):` 기존 문자열에서 'old'라는 부분 문자열을 'new'로 모두 변경
 ```python
 text = 'Hello, world! world world'
 text.replace('world', 'Python') # Hello Python Python Python
 text.replace('world', 'Python', 1) # Hello Python world world
 ```
-str.strip([char]): 선행과 후행 문자가 제거된 문자열의 복사본을 돌려줌  
+`str.strip([char])`: 선행과 후행 문자가 제거된 문자열의 복사본을 돌려줌  
 집합으로도 제거 가능 char 중 하나라도 있으면 계속 제거
 ```python
 text = '   Hello     world    '
@@ -37,7 +38,7 @@ text.strip() # 아무것도 지정하지 않을시 공백 제거
 text = '!!!hello world!!!'
 text.strip('!') # Hello world
 ```
-str.split(sep = None, maxsplit = -1): sep을 구분자 문자열로 사용하여 문자열에 있는 단어를 리스트화
+`str.split(sep = None, maxsplit = -1)`: sep을 구분자 문자열로 사용하여 문자열에 있는 단어를 리스트화
 ```python
 text = 'Hello world'
 text.split() # ['Hello', 'world']
@@ -45,7 +46,7 @@ text ='1, 2, 3, 4'
 text.split(',') # ['1', '2', '3', '4']
 text.split(maxsplit = 1) # 한번만 자름
 ```
-str.join(iterable): 구분자로 iterable의 문자열을 연결한 문자열을 반환  
+`str.join(iterable)`: 구분자로 iterable의 문자열을 연결한 문자열을 반환  
 반복 가능한 문자열을 연결하여 출력
 ```python
 words = ['python', 'is', 'awesome']
@@ -74,9 +75,12 @@ l.sort(): 리스트 정렬. 기본값은 오름차순 # 내림차순: reverse=Tr
 가변객체
 - 생성 후에도 그 내용을 수정할 수 있음
 - 객체의 내용이 변경되어도 같은 메모리 주소 유지
+- 크기가 큰 데이터를 효율적으로 수정
 불변객체
 - 생성 후 그 값을 변경할 수 없음
+- 여러 변수가 동일한 객체를 안전하게 공유할 수 있음
 - 새로운 값을 할당하면 새로운 객체가 생성되고, 변수는 새 객체를 참조하게 됨
+- 메모리 사용을 최소화
 ### 가변 객체
 ```python
 a = [1, 2, 3, 4]
@@ -85,6 +89,13 @@ b[0] = 100
 print(a) # 100, 2, 3, 4
 print(b) # 100, 2, 3, 4
 print (a is b) # True
+
+a = 10
+b = a
+b = 20 # 불변이므로 a의 값은 바뀌지 않는다
+print(a)# 10
+print(b)# 20
+print(a is b)# False
 ```
 id()함수를 통해 객체의 메모리 주소 확인가능
 
@@ -114,9 +125,10 @@ print(b)  # [999, 2, [3, 100, 5]]
 
 ```python
 import copy
-copy.deepcopy(a)
+b = copy.deepcopy(a)
 ```
 ## List Comprehension
+list comprehension을 사용하는 것이 파이썬 내부적으로 성능이 조금 더 좋다
 ```python
 numb = []
 for num in numbers:
