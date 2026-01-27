@@ -142,7 +142,7 @@ data1 = [[0] * (5) for _ in range(5)]
 # OR
 data2 = [[0 for _ in range(5)] for _ in range(5)]
 ```
-코드의 가독성은 기존이 더 좋으니 COmprehension을 남용하지 말자
+코드의 가독성은 기존이 더 좋으니 Comprehension을 남용하지 말자
 **"Simple is better than complex"**  
 **"Keep it simple. stupid"**
 
