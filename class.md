@@ -17,7 +17,7 @@
 
 ### 비교
 절차 지향: 어떤 순서로 처리할까?  
-객체 지향: 어떤 객체이가 이 문제를 해결할까?, 이 객체는 어떤 속성과 기능을 가질까?  
+객체 지향: 어떤 객체가 이 문제를 해결할까?, 이 객체는 어떤 속성과 기능을 가질까?  
 서로 대조되는 개념은 아니다. 객체지향이란 개념을 도입해 상속, 코드 재사용성, 유지 보수성 등의 이점을 가지는 패러다임
 
 ## 객체와 클래스
@@ -49,6 +49,12 @@ class MyClass:
     pass
 ```
 __init__ 메서드는 '생성자 메서드'라 불린다.  
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name # 인스턴스 속성
+    self.age = age
+```
 ## 인스턴스
 클래스를 통해 생성된 객체  
 클래스가 설계도라면 인스턴스는 그 설계도로부터 실제로 만든 "개별 물건"
@@ -78,7 +84,7 @@ print(type(name)) # <class 'str'>
 **하나의 객체(object)는 특정 클래스의 인스턴스(instance)이다.**
 
 ## 클래스 구성요소
-- 생성자 메서드
+# 생성자 메서드
   - 인스턴스 생성 시 자동호출 되는 특별한 메서드
   - __init__이라는 이름의 메서드로 정의
   - 인스턴스 변수의 초기화 담당
@@ -111,9 +117,12 @@ print(Cirecle.pi) # 3.14
 클래스 내부에 정의된 함수로 해당 객체가 어떻게 동작할지를 정의  
 **인스턴스.메서드()**
 ### 인스턴스 메서드
-인스턴스가 쓰는 메서드. 인스턴스의 상태를 조작하거나 동작을 수행합니다.  
+인스턴스가 쓰는 메서드. 인스턴스의 상태를 조작하거나 동작을 수행합니다.    
+ex) list의 append 가 인스턴스 메서드 이다.  
+
 인스턴스 메서드 구조
   - 반드시 첫 번째 인자로 인스턴스 자신(self)을 받음  
+
 반드시 첫 번째 인자가 자기 자신인 이유:
   - 'hello'.upper() --> str.upper('hello')
   - 이는 객체 지향 메서드의 방식으로 호출하는 표현(단축형 호출)이다.
@@ -127,24 +136,41 @@ class Counter:
 c1 = Counter()
 c2 = Counter()
 print(c1.count) # 0
-c1.increment()
+c1.increment() # 인스턴스 메서드
 print(c1.count) # 1
-print(c2.count)
+print(c2.count) # 0
 ```
 
 ### 클래스 메서드
 **클래스 변수를 조작**하거나 클래스 레벨의 **동작을 수행**합니다.  
-**..?  다시 공부 필요**
+@classmethod 데코레이터를 사용하여 정의  
 ```python
 class MyClass:
-    @classmethod
-    def class_method(cls, arg, ...):
-        pass
+  arg = 1
+
+  @classmethod
+  def class_method(cls, arg, ...): # cls는 클래스 자신
+      cls.arg = arg
+
+c = MyClass()
+print(c.arg) # 1
+MyClass.class_method(20)
+print(MyClass.arg) # 20
 ```
 
 ### 스태틱 메서드
-- 호출 시 자동으로 전달 받는 인자가 없음
+- 클래스, 인스턴스와 관계없이 독립적으로 동작하는 메서드
+-  호출 시 자동으로 전달 받는 인자가 없음(self, cls를 받지 않음)
 - @staticmethod
+```python
+class MyClass:
+
+    @staticmethod
+    def static_method(a, b):
+      return a + b
+print(MyClass.static_method(2, 4)) # 6
+
+```
 
 ## 메서드 정리
 1. 인스턴스 메서드
@@ -174,4 +200,31 @@ class MyClass:
   - 클래스와 인스턴스는 다른 객체들과의 상호작용에서 충돌이나 영향을 주지 않으며 독립적이다.
   - 코드의 가독성, 유지보수성, 재사용성을 높인다.
 
+## 매직 메서드
+- 인스턴스 메서드
+- 특정 상황에서 자동으로 호출됨
+```python
+__str__, __len__ # 등 다양하게 있음
+```
 ## 데코레이터
+다른 함수의 코드를 유지한 채로 수정 OR 확장
+```python
+def my_decorator(func):
+    def wrapper():
+        print("실행 전")
+        func()
+        print("실행 후")
+    return wrapper
+
+@my_decorator
+def hello(): # my_decorator로 인해 hello 가 사실 my_decorator(hello) 인 것이다.
+    print("hello")
+
+hello()
+# 출력값
+#실행 전
+# hello
+# 실행 후
+```
+**파이썬 튜터 봐도 이해 안됨** 초비상!!!!  
+개 빡대가린가봄 천천히 다시보기 파이팅!!!
