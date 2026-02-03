@@ -64,7 +64,13 @@ bubblesort(a, N)
         if a[j] > a[j+1]
           a[j] <-> a[j+1]
 ```
-
+파이썬
+```python
+for i in range(N-1, 0, -1):
+  for j in range(i):
+    if arr[j] > arr[j + 1]:
+      arr[j], arr[j+1] = arr[j+1], arr[j]
+```
 ## 파일 여는법
 입력값 파일로 받기
 ```python
@@ -82,19 +88,21 @@ sys.stdout = open("sample_output.txt", "w") # write
 **시간 복잡도: O(n + k)**: n은 리스트의 길이 k는 정수의 최댓값  두 값 중 큰 값의 영향 
 ```python
 # 오름차순 
+arr(배열), n(길이), k(최댓값)
+counts = [0]*(k + 1)# 0~ 최댓값까지 이므로 list 수는 + 1
+sorted_arr = [0] *(n) #정렬 결과 저장 위치
 # 1 개수세기
-counts = []*(max_v + 1)# 0~ 최댓값까지 이므로 list 수는 + 1
 for i in range(n):
-  counts[DATA[i]] += 1
+  counts[arr[i]] += 1
 # 2 누적합
-for i in range(1, n):
+for i in range(1, k+1): # k 번째 까지 더해야 함
   counts[i] = counts[i-1] + counts[i]
 # 3 카운팅 정렬
 # 데이터의 마지막 값부터 진행  
-temp = [] *(max_v + 1)
 for j in range(N-1, -1, -1):
-  counts[DATA[j]] -= 1
-  temp[counts[DATA[j]]] = data[DATA[j]]
+  counts[arr[j]] -= 1 # 인덱스는 0부터 시작하기 때문
+  sorted_arr[counts[arr[j]]] = arr[j]
+
 ```
 
 ## 완전 검색
@@ -134,3 +142,4 @@ c = []*12
 for i in range(6):
   c[num % 10] += 1
   num //= 10
+```
