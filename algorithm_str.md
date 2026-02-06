@@ -127,9 +127,11 @@ print(ans)
 문자열 뒤집기 : s = s[::-1]
 
 ### 회문
-for i : 0 -> len(txt)/2 - 1
-        if txt[i] != txt[len(txt) - 1 - i]
-            return False
+기러기, 토마토 등 거꾸로 읽어도 똑같은 낱말  
+
+for i : 0 -> len(txt)/2 - 1  
+        if txt[i] != txt[len(txt) - 1 - i]  
+            return False  
 ### 문자열 비교
 == : 값을 비교한다.
 is : 객체의 주소를 비교합니다.
@@ -148,7 +150,20 @@ equals()  메소드는 객체의 내용을 비교합니다. (python의 == )
 단순한 방법: ex) 문자열을 처음부터 끝까지 차례대로 순회하면서 패턴 내의 문자들을 일일이 비교한다.  
 20자리에서 5자리 찾기 2015자리를 탐색하며 첫번째 인덱스에서 5개 값 비교  
 시간 복잡도 : O(MN)  (Θ: 일반적으로 걸리는 시간)Θ(n)
+```python
+def brute_force(p, t):
+    i = 0
+    j = 0
+    M = len(p)
+    N = len(t)
+    while j < M and i < N:
+        if t[i] != p[j]:
+            i = i -j
+            j = -1
+        
 
+
+```
 ## KMP 알고리즘  
 패턴의 각 위치에서 매칭에 실패했을 때 돌아갈 위치를 미리 계산  
 
