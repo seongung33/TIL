@@ -77,8 +77,8 @@ q부모 번호를 인덱스로 자식 번호 저장하기
 ```py
 V = E + 1 #간선수 + 1 => 마지막 정점 번호
 # 부모번호를 인덱스로 자식번호를 저장하는 배열
-c1 = [0]*(V+1)
-c2 = [0]*(V+1)
+c1 = [0]*(V+1) # 왼쪽 자식 노드
+c2 = [0]*(V+1) # 오른쪽 자식 노드
 
 for i in range(E):
     p, c = arr[i*2], arr[i*2+1]
@@ -100,11 +100,27 @@ for i in range(1, V+1):
         root = i  
         break
 ```
+ver2
+```py
+# 마지막 노드 N, 간선의 개수 N
+V, N = input()
+tree = list(map(int, input()))
+
+parent = [0]*(V+1)
+
+for i in range(N):
+    p = tree[2*i]
+    c = tree[2*i+1]
+    parent[c] = p
+    # parent 의 값이 0 이면 루트이다.
+```
 루트 찾기, 조상 찾기  
 ```py
 c= 5
-while( a[c] != 0):
-    c = a[c] 
+while( parent[child] != 0): # 부모 노드가 0이 아니다 즉. 루트 노드가 아니다
+    # 부모 노드를 자식 노드로 변경 즉 한칸 위로 이동하는 셈이다.
+    child = parent[child] #parent[child] 값은 기존 자식 노드의 부모노드를 칭하는 것. 이를 자식노드로 바꿔서 루트노드까지 올라간다.
+    # 조상 목록에 추가
     anc.append(c) # 조상목록
 root = c   
 ```
