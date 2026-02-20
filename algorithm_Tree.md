@@ -177,6 +177,52 @@ postorder(T):
 데이터를 빠르게 검색할 수 있도록 체계적으로 저장  
 최대 O(log n)의 속도로 값을 검색할 수 있는 자료구조    
 특정 규칙을 갖는 이진 트리 형태  
+중위 순회시 오름차순으로 이루어 져야 한다.
+왼쪽 자식 노드 < 부모노드 < 오른쪽 자식 노드 가 이뤄져야 한다.
+```py
+class TreeNode:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.key = key
+# root 노드에서 시작, key 값을 가진 노드 찾기
+def search(root, key):
+    # key 값과 루트 노드 비교
+    if key == root.key:
+        return root
+
+    # key 값이 더 크다면
+    if root.key < key:
+        return search(root.right, key)
+    # key 값이 더 작다면
+    if root.key > key:
+        return search(root.left, key)
+
+# 탐색 실패한 위치가 해당 숫자의 삽입 위치이다.
+def insert(root, key):
+    # 트리가 없는 상태 대비
+    if root is None:
+        return TreeNode(key)
+    # 노드가 있다면
+    else:
+        # 탐색을 실패했다면 실패한 위치에 노드를 삽입한다.
+        if root.key < key:
+            root.right = insert(root.right)
+
+    # key 값이 더 작다면
+        if root.key > key:
+            root.left = insert(root.left)
+    return root
+
+arr = [9, 4, 12, 3, 6, 15, 13 ,17]
+root = insert(None, arr[0])
+for num in arr[1:]:
+    insert(root, num)
+# 중위 순회하면 오름차순으로 나온다.
+```
+### 삭제연산
+루트 노드 삭제시 왼쪽 서브트리의 최댓값, 오른쪽 서브 트리의 최솟값으로 바꿀 수 있다.  
+중간 노드 삭제 시 바로 아래 노드(자식이 하나일 시)를 가져오거나 루트노드와 같은 방식으로 가능하다.
 
 ### 연결리스트 vs BST
 - BST는 선형 연결리스트보다 더 빠른 삽입/삭제/탐색이 가능함 
@@ -232,24 +278,28 @@ last = 0 # 완전이진트리는 1번 정점부터 있으므로 아직 노드가
 enq(2) # 삽입
 
 
-# 꺼내기
+# 삭제 후 해당 위치 다른 값 삽입
 def deq():
     global last # 마지막 정점 번호
-    tmp = heap[1] # 루트 원소 백업
+    tmp = heap[1] # 삭제 원소 백업
     # 마지막 노드 삭제
     last -= 1
     # 마지막노드 루트 노드로 복사
     heap[1] = heap[last + 1]
-    p = 1 # 루트가 부모
+    # 최대힙 부모 > 자식
+    p = 1 # 부모 노드
     c = p*2 # 왼쪽 자식 번호
     while c < last: # 자식이 하나라도 있으면(왼쪽 자식)
         if c + 1 <= last and heap[c] < heap[c+1]:
             c += 1 # 비교 대상을 오른쪽으로 변경
             if heap[p] < heap[c]: # 자식이 더 크면 최대힙 규칙에 위배 자리 변경
                 heap[p], heap[c] = heap[c], heap[p]
+                p = c
+                c = c*2
             else:
                 break # while
     return tmp # 루트 값 반환
+# 최대힙에서 루트 값을 반복해서 빼면 내림차순이 된다.
 ```
 
 힙 삽입
@@ -261,3 +311,19 @@ def deq():
  - 루트 노드의 원소를 삭제하여 반환함
  - 마지막 노드 원소를 루트에 복사 후 삭제
  - 이후 자식 중 큰 값과 비교 후 자리 변경
+
+### 파이썬 힙
+최대 힙
+```py
+import heapq
+
+heap = []
+lst = [5, 3, 6 ,2, 1, 4, 7, 8, 9]
+# -lst[i] 사용시 최소 힙이 된다.
+for i in range(10):
+    heapq.heappush(heap, lst[i])
+
+for i in range(10):
+    print(heapq.heappop(heap), end= ' ')
+print()
+```
