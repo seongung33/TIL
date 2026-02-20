@@ -140,9 +140,9 @@ root = c
 ```py
 preorder_traverse(T):
     if T:
-        visit(T)
-        preorder_traverse(T.left)
-        preorder_traverse(T.right)
+        visit(T) # print(T)
+        preorder_traverse(T.left)# left[T]
+        preorder_traverse(T.right)# right[T]
 ```
 
 ### 중위 순회
@@ -152,9 +152,9 @@ preorder_traverse(T):
 ```py
 inorder(T):
     if T:
-        inorder(T.left)
-        visited(T)
-        inorder(T.right)
+        inorder(T.left)#[left[T]]
+        visited(T)# print[T]
+        inorder(T.right)# right[T]
 ```
 ### 후위 순회
 1. 현재 노드 n의 왼쪽 서브트리로 이동한다
@@ -163,12 +163,101 @@ inorder(T):
 ```py
 postorder(T):
     if T:
-        postorder(T.left)
-        postorder(T.right)
-        visited(T)
+        postorder(T.left) # left[T]
+        postorder(T.right)# right[T]
+        visited(T) # print(T)
 ```
 ## 수식 트리
 - 수식을 표현하는 이진 트리
 - 수식 이진 트리(Expression Binary Tree)라고 부르기도함
 - 연산자는 루트 노드이거나 가지 노드
 - 피연산자는 모두 잎 노드(자식이 없음) 
+
+## 이진 탐색 트리(Binary Search Tree, BST)
+데이터를 빠르게 검색할 수 있도록 체계적으로 저장  
+최대 O(log n)의 속도로 값을 검색할 수 있는 자료구조    
+특정 규칙을 갖는 이진 트리 형태  
+
+### 연결리스트 vs BST
+- BST는 선형 연결리스트보다 더 빠른 삽입/삭제/탐색이 가능함 
+- 연결리스트 성능
+  - 삽입:O(N)
+  - 삭제:O(N)
+  - 탐색:O(N)
+- BST 성능
+  - 삽입:평균 O(log N)
+  - 삭제:평균 O(log N)
+  - 탐색:평균 O(log N)
+
+### BST
+key(왼쪽 서브트리) < key(루트노드) < key(오른쪽 서브트리)  
+이진트리가 균형적으로 생성되어 있는 경우 평균의 성능   
+한쪽으로 치우친 경우 최악으로 O(n)시간이 걸립니다. == 순차탐색  
+
+다른 검색의 성능  
+- 배열에서의 순차검색 O(N)
+- 정렬된 배열에서의 순차 검색  O(N)
+- 정렬된 배열에서의 이진 탐색:O(logN)
+  - 크기가 고정된 배열에서 삽입, 삭제 시 추가 연산이 필요합니다.
+- 해쉬 검색O(1)
+  - 추가 저장 공간이 필요합니다.  
+
+## 힙(Heap)
+- 완전 이진 트리에 있는 노드 중에서 키 값이 가장 크거나 작은 노드를 찾기 위해서 만든 자료구조
+- 최대 힙(Max Heap)
+  - 키 값이 가장 큰 노드를 찾기 위한 힙 입니다.
+  - 항상 {부모 노드의 키 값 > 자식 노드의 키 값} 조건을 만족합니다.
+  - 루트 노드: 키 값이 가장 큰 노드입니다.
+- 최소 힙(Min Heap)
+  - 키 값이 가장 작은 노드를 찾기 위한 힙 입니다.
+  - 항상 {부모 노드의 키 값 <> 자식 노드의 키 값} 조건을 만족합니다.
+  - 루트 노드: 키 값이 가장 작은 노드입니다.
+
+Max Heap 
+삽입
+```py
+def enq(n):
+    global last
+    last += 1
+    heap[last] = n
+
+    c= last
+    p = c // 2 # 부모 찾기
+    while p and heap[p] < heap[c]: # 부모가 있고 부모 < 자식 인 경우
+        heap[p], heap[c] = heap[c], heap[p]
+        c = p
+        p = c // 2
+heap = [0]* 100 # 최대 99개의 데이터
+last = 0 # 완전이진트리는 1번 정점부터 있으므로 아직 노드가 없는 상태.
+enq(2) # 삽입
+
+
+# 꺼내기
+def deq():
+    global last # 마지막 정점 번호
+    tmp = heap[1] # 루트 원소 백업
+    # 마지막 노드 삭제
+    last -= 1
+    # 마지막노드 루트 노드로 복사
+    heap[1] = heap[last + 1]
+    p = 1 # 루트가 부모
+    c = p*2 # 왼쪽 자식 번호
+    while c < last: # 자식이 하나라도 있으면(왼쪽 자식)
+        if c + 1 <= last and heap[c] < heap[c+1]:
+            c += 1 # 비교 대상을 오른쪽으로 변경
+            if heap[p] < heap[c]: # 자식이 더 크면 최대힙 규칙에 위배 자리 변경
+                heap[p], heap[c] = heap[c], heap[p]
+            else:
+                break # while
+    return tmp # 루트 값 반환
+```
+
+힙 삽입
+ - 마지막 원소 자리 추가
+ - 이후 부모 원소와 값 비교후 자리 교체 시행
+ - 종료될 때 까지 반복한다.  
+힙 삭제
+ - 힙에서는 루트 노드의 원소만 삭제할 수 있음
+ - 루트 노드의 원소를 삭제하여 반환함
+ - 마지막 노드 원소를 루트에 복사 후 삭제
+ - 이후 자식 중 큰 값과 비교 후 자리 변경
