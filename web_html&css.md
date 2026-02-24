@@ -99,6 +99,9 @@ Cascading Style Sheet
 - 결합자
   - .클래스 li : 자손 결합자. 하위레벨 모두 선택
   - /> : 자식 결합자 - 직계 자식만 선택  
+    - .green > .pink 클래스가 그린인 **자식** 중 클래스가 핑크인 요소
+  -    : 자손 결합자 - 모든 자손 선택 (공백을 뜻함)
+       - .green .pink 클래스가 그린의 **자손**중 클래스가 핑크인 요소
 
 명시도가 높은 순
 1. !important : 권장하지는 않는 키워드.
@@ -125,12 +128,26 @@ Cascading Style Sheet
 
 ## CSS Box Model
 웹 페이지의 모든 HTML 요소를 감싸는 사각형 상자 모델  
-내용(content), 안쪽 여백(padding), 테두리(border), 외부간격(margin)으로 구성되어 요소의 크기와 배치를 결정  
+내용(content), 안쪽 여백(padding), 테두리(border), 외부간격(margin)으로 구성되어 요소의 크기와 배치를 결정   
+안쪽부터 content > padding > border > margin
 ## shorthand  
+border-width, style, color 를 한번에 지정한다.  
+border: 2px solid black;   
+상/우/하/좌  
+margin: 10px, 20px, 30px, 40px;
 
+상/좌우/하  
+margin: 10px, 20px, 30px;  
+
+상하/좌우  
+margin: 10px, 20px;  
+
+공통   
+margin: 10px;  
 
 ## box- sizing 속성 (박스의 크기 계산법)  
 1. 개발자 도구의 크기는 content 기준으로 계산한다. 
-2. borderbox가 아닌 content box의 크기로 지정
-3. * {box-sizing: content-box} or * {box-sizing: border-box}
-4. 기본값이 content box이므로 따로 border-box 지정
+2. 박스의 크기를 그냥 입력시 content box의 크기로 지정
+3. borderbox가 아닌 content box의 크기로 지정
+4. * {box-sizing: content-box} or * {box-sizing: border-box}
+5. 기본값이 content box이므로 따로 border-box 지정
