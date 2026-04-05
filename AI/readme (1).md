@@ -110,7 +110,8 @@ Output: The weather is nice today
 
 ### 5-1. Sparse Retrieval (희소 검색)
 
-키워드 기반 검색 방식
+키워드 기반 검색 방식  
+어휘적 유사도  
 
 | 기법 | 설명 |
 |------|------|
@@ -122,7 +123,8 @@ Output: The weather is nice today
 
 ### 5-2. Dense Retrieval (밀집 검색)
 
-임베딩 기반 의미론적 검색
+임베딩 기반 의미론적 검색  
+의미적 유사도  
 
 | 기법 | 설명 |
 |------|------|
