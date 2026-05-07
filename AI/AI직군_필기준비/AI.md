@@ -21,15 +21,15 @@
 전이학습 - 사전에 학습이 완료된 모델을 가지고 미세 조정 기법을 이용해 학습   
 사전 학습 모델 - 분석하려는 주제에 대해 많은 학습이 되어있는 모델을 이용
 
-| 구분 | 유형 | 알고리즘 |
-|------|------|----------|
-| 지도 학습 (Supervised Learning) | 이미지 분류 | CNN, AlexNet, ResNet |
-| 지도 학습 (Supervised Learning) | 시계열 데이터 분석 | RNN, LSTM |
-| 비지도 학습 (Unsupervised Learning) | 군집 (Clustering) | Gaussian Mixture Model (GMM), Self-Organizing Map (SOM) |
-| 비지도 학습 (Unsupervised Learning) | 차원 축소 | AutoEncoder, PCA |
-| 전이 학습 (Transfer Learning) | 사전 학습 모델 | ELMo |
-| 전이 학습 (Transfer Learning) | 전이 학습 | BERT, MobileNetV2 |
-| 강화 학습 (Reinforcement Learning) | - | Markov Decision Process (MDP) |
+| 구분                                | 유형               | 알고리즘                                                |
+| ----------------------------------- | ------------------ | ------------------------------------------------------- |
+| 지도 학습 (Supervised Learning)     | 이미지 분류        | CNN, AlexNet, ResNet                                    |
+| 지도 학습 (Supervised Learning)     | 시계열 데이터 분석 | RNN, LSTM                                               |
+| 비지도 학습 (Unsupervised Learning) | 군집 (Clustering)  | Gaussian Mixture Model (GMM), Self-Organizing Map (SOM) |
+| 비지도 학습 (Unsupervised Learning) | 차원 축소          | AutoEncoder, PCA                                        |
+| 전이 학습 (Transfer Learning)       | 사전 학습 모델     | ELMo                                                    |
+| 전이 학습 (Transfer Learning)       | 전이 학습          | BERT, MobileNetV2                                       |
+| 강화 학습 (Reinforcement Learning)  | -                  | Markov Decision Process (MDP)                           |
 
 
 ## 머신러닝 핵심 알고리즘
@@ -53,11 +53,11 @@
 
 #### 판단
 **혼동행렬**
-| 실제 \ 예측 | Positive (예측) | Negative (예측) | 지표 |
-|-------------|-----------------|-----------------|------|
-| Positive (실제) | TP | FN | Recall = TP / (TP + FN) |
-| Negative (실제) | FP | TN | Precision = TP / (TP + FP) |
-| 전체 |  |  | Accuracy = (TP + TN) / (TP + TN + FP + FN) |
+| 실제 \ 예측     | Positive (예측) | Negative (예측) | 지표                                       |
+| --------------- | --------------- | --------------- | ------------------------------------------ |
+| Positive (실제) | TP              | FN              | Recall = TP / (TP + FN)                    |
+| Negative (실제) | FP              | TN              | Precision = TP / (TP + FP)                 |
+| 전체            |                 |                 | Accuracy = (TP + TN) / (TP + TN + FP + FN) |
 
 - Accuracy = (TP + TN) / (TP + TN + FP + FN)
 - Precision = TP / (TP + FP)
